@@ -1,3 +1,21 @@
 * {
 	font-family: Poppins !important;
 }
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.Auth_Main {
+	background-color: teal;
+	height: 100dvh;
+	display: grid;
+	place-items: center;
+}
+
+.Auth_Main p {
+	cursor: pointer;
+	color: rgb(80, 97, 170);
+	font-size: medium;
+}
