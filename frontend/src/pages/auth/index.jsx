@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 
 const index = () => {
-	return <>
-	<div class="card" >
-  <div class="card-body">
-    This is some text within a card body.
-  </div>
-</div>
-	</>;
+  return (
+    <>
+      <Login />
+
+      <SignUp />
+    </>
+  );
 };
 
 export default index;
