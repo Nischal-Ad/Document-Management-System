@@ -1,22 +1,7 @@
-import { Box, Button, Stack, TextField } from '@mui/material';
+import React from 'react';
 
 const Login = () => {
-	return (
-		<Stack width={{ md: '100%', sm: '100%', xs: '100%' }} spacing={3}>
-			<TextField type='email' label='email' variant='standard' />
-			<TextField type='password' label='password' variant='standard' />
-			<Box display={'flex'} justifyContent={'center'}>
-				<Button
-					variant='contained'
-					sx={{
-						width: '10rem',
-					}}
-				>
-					Login
-				</Button>
-			</Box>
-		</Stack>
-	);
+	return <div>Login</div>;
 };
 
 export default Login;

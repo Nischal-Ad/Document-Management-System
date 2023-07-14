@@ -2,7 +2,6 @@ import { Route, createBrowserRouter, createRoutesFromElements } from 'react-rout
 import ProtectedRoute from './ProtectedRoute';
 
 //normal components
-import Landing from '../pages/landing';
 import Footer from '../shared/footer/Footer';
 import Navbar from '../shared/navbar/UserNav';
 import Home from '../pages/user/home';
@@ -16,8 +15,7 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<>
 			{/* normal routes  */}
-			<Route path='/' element={<Landing />} />
-			<Route path='/auth' element={<Auth />} />
+			<Route path='/' element={<Auth />} />
 			<Route path='*' element={<Error />} />
 			{/* end of normal routes  */}
 
