@@ -1,27 +1,39 @@
-import React from "react";
-
+import Table from 'react-bootstrap/Table';
 const index = () => {
-  return (
-    <>
-      <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">Navbar</span>
-        </div>
-      </nav>
-      <div class="card">
-        <div class="card-body"></div>
-        <h5 class="card-title">All documents</h5>
-      </div>
-      <div
-        className="rectangle"
-        style={{ width: 1082, height: 380, background: "#D9D9D9" }}
-      >
-        <h3 className="text-center" style={{ fontWeight: "700" }}>
-          Latest Documents
-        </h3>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<h5 className='fs-1 fw-bolder'>All documents</h5>
+			<Table striped bordered hover>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Mark</td>
+						<td>Otto</td>
+						<td>@mdo</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Jacob</td>
+						<td>Thornton</td>
+						<td>@fat</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td colSpan={2}>Larry the Bird</td>
+						<td>@twitter</td>
+					</tr>
+				</tbody>
+			</Table>
+		</>
+	);
 };
 
 export default index;
