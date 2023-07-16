@@ -10,7 +10,7 @@ import Footer from "../shared/footer/Footer";
 import Navbar from "../shared/navbar/UserNav";
 import Home from "../pages/user/home";
 import Documents from "../pages/user/document/view document";
-import AddDocument from "../pages/user/document/add document";
+import AddDocument from "../pages/user/document/uploaddoc";
 import ViewDocument from "../pages/user/document/view document/Details";
 import Error from "../shared/Error";
 import Auth from "../pages/auth";
