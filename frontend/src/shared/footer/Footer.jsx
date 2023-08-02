@@ -1,12 +1,12 @@
-const Footer = () => {
-	return (
-		<footer className='bg-dark text-center text-white'>
-			<div className='text-center p-3'>
-				©2023 Copyright:
-				<a className='text-white'>sujit shrestha</a>
-			</div>
-		</footer>
-	);
-};
+import { Footer } from 'flowbite-react';
+import Section from '../../components/Section';
 
-export default Footer;
+export default function DefaultFooter() {
+	return (
+		<Footer className='bg-blue-500 py-4 mt-4'>
+			<Section>
+				<Footer.Copyright by='Sujit Shrestha' className='text-white font-bold' year={2023} />
+			</Section>
+		</Footer>
+	);
+}
