@@ -1,5 +1,7 @@
 import { Button, Card } from 'flowbite-react';
 import Section from '../../../components/Section';
+import RecentDocTable from './components/RecentDocTable';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 
 const UserHome = () => {
 	return (
@@ -41,6 +43,11 @@ const UserHome = () => {
 					</Button>
 				</Card>
 			</div>
+			<RecentDocTable />
+			<Button className='mt-4'>
+				<p>Show More</p>
+				<HiOutlineArrowRight className='ml-2 h-5 w-5' />
+			</Button>
 		</Section>
 	);
 };

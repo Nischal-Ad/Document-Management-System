@@ -7,6 +7,7 @@ import Navbar from '../shared/navbar/UserNav';
 import Home from '../pages/user/home';
 import Documents from '../pages/user/document/view document';
 import UploadDoc from '../pages/user/document/uploaddoc';
+import DocDetails from '../pages/user/document/details';
 import Error from '../shared/Error';
 import Auth from '../pages/auth';
 
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
 			<Route element={<ProtectedRoute isAuth={true} nav={<Navbar />} footer={<Footer />} />}>
 				<Route path='/home' element={<Home />} />
 				<Route path='/documents' element={<Documents />} />
+				<Route path='/documents/:id' element={<DocDetails />} />
 				<Route path='/add/document' element={<UploadDoc />} />
 			</Route>
 			{/* end of ProtectedRoute for users  */}
