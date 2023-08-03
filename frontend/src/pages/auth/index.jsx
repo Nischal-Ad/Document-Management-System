@@ -8,9 +8,11 @@ const index = () => {
 	return (
 		<>
 			<Section>
-				<Card className='max-w-sm mx-auto mt-5' href='#'>
-					<Login />
-				</Card>
+				<div className='grid place-content-center h-[100dvh]'>
+					<Card className='sm:w-[30rem] w-[90dvw] hover:bg-white  mx-auto' href='#'>
+						<Login />
+					</Card>
+				</div>
 			</Section>
 		</>
 	);

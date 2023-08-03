@@ -1,9 +1,14 @@
 import React from 'react';
 import Section from '../../../components/Section';
 import { Button } from 'flowbite-react';
+import logo from '../../../assects/img/logo.png';
+
 const Login = () => {
 	return (
 		<Section>
+			<div className='flex justify-center mb-5'>
+				<img src={logo} alt='' />
+			</div>
 			<div>
 				<label htmlFor='input-group-1' className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
 					Email *
