@@ -1,22 +1,24 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const error = require("./middleware/error");
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const error = require('./middleware/error');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
-  cors({
-    origin: "*",
-  })
+	cors({
+		origin: '*',
+	})
 );
 
 //route imports
-const user = require("./routes/userRoute");
+const user = require('./routes/userRoute');
+const document = require('./routes/documentRoute');
 
-app.use("/api/v1", user);
+app.use('/api/v1', user);
+app.use('/api/v1', document);
 
 //middleware for error
 app.use(error);

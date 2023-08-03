@@ -1,38 +1,22 @@
-const express = require("express");
-const { isAuth, roles } = require("../middleware/auth");
-const {
-  registerUser,
-  loginUser,
-  getUser,
-  getMe,
-  updatePassword,
-  updateProfile,
-  getAllUsers,
-  updateUser,
-  deleteUser,
-  logout,
-  updateRole,
-} = require("../controller/userController");
+const express = require('express');
+const { isAuth, roles } = require('../middleware/auth');
+const { registerUser, loginUser, getUser, getMe, updatePassword, updateProfile, getAllUsers, updateUser, deleteUser, logout, updateRole } = require('../controller/userController');
 
 const router = express.Router();
 
-router.route("/register").post(registerUser);
-router.route("/login").post(loginUser);
+router.route('/register').post(registerUser);
+router.route('/login').post(loginUser);
 // router.route("/forgetpassword").post(forgetPassword);
 
 //protected routes for all authorized user
 // router.route("/password/reset/:token").put(isAuth, resetPassword);
-router.route("/profile").get(isAuth, getMe);
-router.route("/changepassword").put(isAuth, updatePassword);
-router.route("/updateprofile").put(isAuth, updateProfile);
-router.route("/updaterole/:id").put(isAuth, updateRole);
-router.route("/logout").get(isAuth, logout);
-router
-  .route("/user/:id")
-  .put(isAuth, updateUser)
-  .delete(isAuth, deleteUser)
-  .get(isAuth, getUser);
+router.route('/profile').get(isAuth, getMe);
+router.route('/changepassword').put(isAuth, updatePassword);
+router.route('/updateprofile').put(isAuth, updateProfile);
+router.route('/updaterole/:id').put(isAuth, updateRole);
+router.route('/logout').get(isAuth, logout);
+router.route('/user/:id').put(isAuth, updateUser).delete(isAuth, deleteUser).get(isAuth, getUser);
 
-router.route("/users").get(isAuth, roles("admin"), getAllUsers);
+router.route('/users').get(isAuth, roles('admin'), getAllUsers);
 
 module.exports = router;
