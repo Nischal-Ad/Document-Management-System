@@ -24,24 +24,7 @@ const user = () => {
           <Table.HeadCell></Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              chidori
-            </Table.Cell>
-            <Table.Cell>Oppa</Table.Cell>
-            <Table.Cell>Oppa Dept</Table.Cell>
-            <Table.Cell>Oppalal</Table.Cell>
-
-            <Table.Cell className="flex items-start justify-start gap-4">
-              <p className="font-medium text-cyan-600 hover:underline">View</p>
-              <a className="font-medium text-green-600 hover:underline">
-                <p>Edit</p>
-              </a>{" "}
-              <a className="font-medium text-red-600 hover:underline">
-                <p>Delete</p>
-              </a>
-            </Table.Cell>
-          </Table.Row>{" "}
+          <Table.Row className="bg-white dark:border-gray-700"></Table.Row>{" "}
           <Table.Row className="bg-white dark:border-gray-700">
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
               Oppa ko file
@@ -51,80 +34,11 @@ const user = () => {
             <Table.Cell>Oppalal</Table.Cell>
 
             <Table.Cell className="flex items-start justify-start gap-4">
-              <a className="font-medium text-cyan-600 hover:underline">
-                <p>View</p>
-              </a>
-              <a className="font-medium text-green-600 hover:underline">
-                <p>Edit</p>
-              </a>{" "}
-              <a className="font-medium text-red-600 hover:underline">
-                <p>Delete</p>
-              </a>
+              <Button gradientMonochrome="info">View</Button>
+              <Button gradientMonochrome="success">Edit</Button>
+              <Button gradientMonochrome="failure">Delete</Button>
             </Table.Cell>
           </Table.Row>{" "}
-          <Table.Row className="bg-white dark:border-gray-700">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Oppa ko file
-            </Table.Cell>
-            <Table.Cell>Oppa</Table.Cell>
-            <Table.Cell>Oppa Dept</Table.Cell>
-            <Table.Cell>Oppalal</Table.Cell>
-
-            <Table.Cell className="flex items-start justify-start gap-4">
-              <a className="font-medium text-cyan-600 hover:underline">
-                <p>View</p>
-              </a>
-              <a className="font-medium text-green-600 hover:underline">
-                <p>Edit</p>
-              </a>{" "}
-              <a className="font-medium text-red-600 hover:underline">
-                <p>Delete</p>
-              </a>
-            </Table.Cell>
-          </Table.Row>{" "}
-          <Table.Row className="bg-white dark:border-gray-700">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Oppa ko file
-            </Table.Cell>
-            <Table.Cell>Oppa</Table.Cell>
-            <Table.Cell>Oppa Dept</Table.Cell>
-            <Table.Cell>Oppalal</Table.Cell>
-
-            <Table.Cell className="flex items-start justify-start gap-4">
-              <a className="font-medium text-cyan-600 hover:underline">
-                <p>View</p>
-              </a>
-              <a className="font-medium text-green-600 hover:underline">
-                <p>Edit</p>
-              </a>{" "}
-              <a className="font-medium text-red-600 hover:underline">
-                <p>Delete</p>
-              </a>
-            </Table.Cell>
-          </Table.Row>{" "}
-          <Table.Row className="bg-white dark:border-gray-700">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Oppa ko file
-            </Table.Cell>
-            <Table.Cell>Oppa</Table.Cell>
-            <Table.Cell>Oppa Dept</Table.Cell>
-            <Table.Cell>Oppalal</Table.Cell>
-
-            <Table.Cell className="flex items-start justify-start gap-4">
-              <Link
-                to={"/documents/hjkzgf"}
-                className="font-medium text-cyan-600 hover:underline"
-              >
-                <p>View</p>
-              </Link>
-              <a className="font-medium text-green-600 hover:underline">
-                <p>Edit</p>
-              </a>{" "}
-              <a className="font-medium text-red-600 hover:underline">
-                <p>Delete</p>
-              </a>
-            </Table.Cell>
-          </Table.Row>
         </Table.Body>
       </Table>
       <Pagination
