@@ -1,18 +1,20 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = ({ isAuth = false, nav, footer }) => {
-  if (!isAuth) {
-    return <Navigate to={"/"} replace={true} />;
-  }
+const ProtectedRoute = ({ isAuth = false, nav, footer, isloading = false }) => {
+	if (!isAuth) {
+		return <Navigate to={'/'} replace={true} />;
+	}
 
-  return (
-    <>
-      {nav}
-      <Outlet />
-      {footer}
-    </>
-  );
+	return isloading ? (
+		'loading...'
+	) : (
+		<>
+			{nav}
+			<Outlet />
+			{footer}
+		</>
+	);
 };
 
 export default ProtectedRoute;

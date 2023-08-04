@@ -2,9 +2,19 @@ import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import logo from '../../assects/img/logo.png';
 import Section from '../../components/Section';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/action/user';
 
 const UserNav = () => {
+	const { user } = useSelector((store) => store.user);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		dispatch(logout());
+		navigate('/', { replace: true });
+	};
 	return (
 		<main className='bg-blue-800'>
 			<Navbar className='container mx-auto bg-transparent text-white' fluid rounded>
@@ -17,12 +27,14 @@ const UserNav = () => {
 				<div className='flex md:order-2 text-center'>
 					<Dropdown inline label={<Avatar rounded />}>
 						<Dropdown.Header className='text-center'>
-							<span className='block font-bold text-sm'>Bonnie Green</span>
-							<span className='block truncate text-sm font-medium'>name@flowbite.com</span>
+							<span className='block font-bold text-sm'>{user?.name}</span>
+							<span className='block truncate text-sm font-medium'>{user?.email}</span>
 						</Dropdown.Header>
 						<p className='px-6  py-2 curso cursor-pointer'>Change Passsword</p>
 						<Dropdown.Divider />
-						<p className='py-1 cursor-pointer'>Logout</p>
+						<p className='py-1 cursor-pointer' onClick={handleLogout}>
+							Logout
+						</p>
 					</Dropdown>
 					<Navbar.Toggle className='text-white' />
 				</div>

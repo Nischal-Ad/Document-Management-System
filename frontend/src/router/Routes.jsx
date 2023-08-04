@@ -1,4 +1,4 @@
-import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 //normal components
@@ -13,26 +13,31 @@ import AdminHome from '../pages/admin/home';
 import Error from '../shared/Error';
 import Auth from '../pages/auth';
 
-const router = createBrowserRouter(
-	createRoutesFromElements(
-		<>
-			{/* normal routes  */}
-			<Route path='/' element={<Auth />} />
-			<Route path='*' element={<Error />} />
-			{/* end of normal routes  */}
+const Router = ({ isAuth, isLoading }) => {
+	const router = createBrowserRouter(
+		createRoutesFromElements(
+			<>
+				{/* normal routes  */}
+				<Route path='/' element={<Auth />} />
+				<Route path='*' element={<Error />} />
+				{/* end of normal routes  */}
 
-			{/* ProtectedRoute for users  */}
-			<Route element={<ProtectedRoute isAuth={true} nav={<Navbar />} footer={<Footer />} />}>
-				<Route path='/home' element={<Home />} />
-				<Route path='/documents' element={<Documents />} />
-				<Route path='/documents/:id' element={<DocDetails />} />
-				<Route path='/add/document' element={<UploadDoc />} />
-				<Route path='/add/user' element={<AddUser />} />
-				<Route path='/adminhome' element={<AdminHome />} />
-			</Route>
-			{/* end of ProtectedRoute for users  */}
-		</>
-	)
-);
+				{/* ProtectedRoute for users  */}
+				<Route element={<ProtectedRoute isAuth={isAuth} isloading={isLoading} nav={<Navbar />} footer={<Footer />} />}>
+					<Route path='/home' element={<Home />} />
+					<Route path='/documents' element={<Documents />} />
+					<Route path='/documents/:id' element={<DocDetails />} />
+					<Route path='/add/document' element={<UploadDoc />} />
 
-export default router;
+					{/* //admin route  */}
+					<Route path='/add/user' element={<AddUser />} />
+					<Route path='/adminhome' element={<AdminHome />} />
+				</Route>
+				{/* end of ProtectedRoute for users  */}
+			</>
+		)
+	);
+	return <RouterProvider router={router} />;
+};
+
+export default Router;
