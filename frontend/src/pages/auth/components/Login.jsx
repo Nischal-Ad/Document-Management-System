@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Section from '../../../components/Section';
 import { Button } from 'flowbite-react';
 import logo from '../../../assects/img/logo.png';
@@ -20,7 +20,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) navigate('/home');
-	}, [isAuthenticated]);
+	}, [isAuthenticated, navigate]);
 
 	return (
 		<Section>

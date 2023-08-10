@@ -18,7 +18,7 @@ const UserHome = () => {
 								<p>Total Documents</p>
 							</h5>
 							<p className='font-bold text-3xl text-gray-700 dark:text-gray-400 text-center'>
-								<p>2</p>
+								<span>2</span>
 							</p>
 							<Button>
 								<p>Go to Documents</p>
@@ -30,7 +30,7 @@ const UserHome = () => {
 								<p>Total Categories</p>
 							</h5>
 							<p className='font-bold text-3xl text-gray-700 dark:text-gray-400 text-center'>
-								<p>5</p>
+								<span>5</span>
 							</p>
 							<Button>
 								<p>Go To Categories</p>
@@ -42,7 +42,7 @@ const UserHome = () => {
 								<p>Total Departments</p>
 							</h5>
 							<p className='font-bold text-3xl text-gray-700 dark:text-gray-400 text-center'>
-								<p>2</p>
+								<span>2</span>
 							</p>
 							<Button>
 								<p>Go To Departments</p>
