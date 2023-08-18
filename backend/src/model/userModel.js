@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -50,55 +51,10 @@ const userSchema = new mongoose.Schema({
 	resetPasswordExpire: Date,
 });
 
-const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-	modulusLength: 2048,
-});
-
-const encrypt = (pass) => {
-	const encryptedData = crypto.publicEncrypt(
-		{
-			key: publicKey,
-			padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-			oaepHash: 'sha512',
-		},
-		// We convert the data string to a buffer using `Buffer.from`
-		Buffer.from(pass)
-	);
-	return encryptedData.toString('base64');
-};
-
-const decrypt = (pass) => {
-	const decryptedData = crypto.privateDecrypt(
-		{
-			key: privateKey,
-			padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-			oaepHash: 'sha512',
-		},
-		(encryptedData = crypto.publicEncrypt(
-			{
-				key: publicKey,
-				padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-				oaepHash: 'sha512',
-			},
-			// We convert the data string to a buffer using `Buffer.from`
-			Buffer.from(pass)
-		))
-	);
-
-	// The decrypted data is of the Buffer type, which we can convert to a
-	// string to reveal the original data
-	return decryptedData.toString();
-};
-
+//encrypting password and removing cpassword
 userSchema.pre('save', async function (next) {
-	if (!this.isModified('password')) {
-		return next();
-	}
-
-	//hash password
-	this.password = await encrypt(this.password);
-
-	//delete confirmPassword feild in database
+	if (!this.isModified('password')) return next();
+	this.password = await bcrypt.hash(this.password, 10);
 	this.cpassword = undefined;
 	next();
 });
@@ -112,8 +68,7 @@ userSchema.methods.getJWTToken = function () {
 
 //compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
-	enteredPassword = await decrypt(enteredPassword);
-	return await (enteredPassword, this.password);
+	return await bcrypt.compare(enteredPassword, this.password);
 };
 
 //generating password reset token
