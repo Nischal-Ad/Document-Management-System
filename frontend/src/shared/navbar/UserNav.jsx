@@ -1,7 +1,5 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import logo from '../../assects/img/logo.png';
-import Section from '../../components/Section';
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/action/user';
@@ -16,7 +14,7 @@ const UserNav = () => {
 		navigate('/', { replace: true });
 	};
 	return (
-		<main className='bg-blue-800'>
+		<main className='bg-blue-800 mb-3'>
 			<Navbar className='container mx-auto bg-transparent text-white' fluid rounded>
 				<Link to={'/'}>
 					<div className='flex'>

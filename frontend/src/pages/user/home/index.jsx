@@ -12,8 +12,8 @@ const UserHome = () => {
 				'loading...'
 			) : (
 				<>
-					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
-						<Card className='text-center text-gray-700'>
+					<div className='md:flex justify-around p-2'>
+						<Card className='text-center text-gray-700 w-full md:mx-4 md:mb-0 mb-4'>
 							<h5 className='text-2xl font-bold tracking-tight'>
 								<p>Total Documents</p>
 							</h5>
@@ -25,7 +25,7 @@ const UserHome = () => {
 							</Button>
 						</Card>
 
-						<Card className='text-center text-gray-700'>
+						<Card className='text-center text-gray-700 w-full md:mx-4 md:mb-0 mb-4'>
 							<h5 className='text-2xl font-bold tracking-tight '>
 								<p>Total Categories</p>
 							</h5>
@@ -34,18 +34,6 @@ const UserHome = () => {
 							</p>
 							<Button>
 								<p>Go To Categories</p>
-							</Button>
-						</Card>
-
-						<Card className='text-center text-gray-700'>
-							<h5 className='text-2xl font-bold tracking-tight'>
-								<p>Total Departments</p>
-							</h5>
-							<p className='font-bold text-3xl text-gray-700 dark:text-gray-400 text-center'>
-								<span>2</span>
-							</p>
-							<Button>
-								<p>Go To Departments</p>
 							</Button>
 						</Card>
 					</div>
