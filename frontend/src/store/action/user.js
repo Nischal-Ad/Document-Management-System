@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { notifyError, notifySuccess } from '../../components/alerts';
 
 export const login = (email, password) => async (dispatch) => {
 	try {
@@ -17,8 +18,10 @@ export const login = (email, password) => async (dispatch) => {
 		);
 
 		dispatch({ type: 'loginSuccess', payload: data });
+		notifySuccess('login successful');
 	} catch (error) {
 		dispatch({ type: 'loginFail', payload: error.response.data.message });
+		notifyError(error.response.data.message);
 	}
 };
 
