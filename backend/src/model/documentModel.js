@@ -24,8 +24,14 @@ const documentSchema = new mongoose.Schema(
 			required: [true, 'please enter your department'],
 		},
 		doc: {
-			type: String,
-			required: [true, 'please enter your template'],
+			public_id: {
+				type: String,
+				required: true,
+			},
+			url: {
+				type: String,
+				required: true,
+			},
 		},
 	},
 	{
