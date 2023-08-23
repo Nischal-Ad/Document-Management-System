@@ -15,7 +15,7 @@ router.route('/changepassword').put(isAuth, updatePassword);
 router.route('/updateprofile').put(isAuth, updateProfile);
 router.route('/updaterole/:id').put(isAuth, updateRole);
 router.route('/logout').get(isAuth, logout);
-router.route('/user/:id').put(isAuth, updateUser).delete(isAuth, deleteUser).get(isAuth, getUser);
+router.route('/user/:id').put(isAuth, updateUser).delete(isAuth, roles('admin'), deleteUser).get(isAuth, getUser);
 
 router.route('/users').get(isAuth, roles('admin'), getAllUsers);
 

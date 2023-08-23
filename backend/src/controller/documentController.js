@@ -48,7 +48,7 @@ exports.getOneDoc = catchAsync(async (req, res, next) => {
 	const doc = await Document.findById(req.params.id);
 
 	if (!doc) {
-		return next(new ErrorHandler('Documenet not found', 404));
+		return next(new ErrorHandler('document not found', 404));
 	}
 
 	res.status(200).json({
