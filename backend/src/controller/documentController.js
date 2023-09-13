@@ -16,7 +16,6 @@ exports.createDoc = catchAsync(async (req, res, next) => {
 		public_id: file.originalname,
 		resource_type: 'raw',
 		folder: 'document',
-		allowedFormats: ['jpg', 'jpeg', 'png', 'pdf'],
 	});
 
 	const doc = await Document.create({
@@ -36,7 +35,7 @@ exports.createDoc = catchAsync(async (req, res, next) => {
 });
 
 exports.getDoc = catchAsync(async (req, res, next) => {
-	const doc = await Document.find();
+	const doc = await Document.find().populate('user');
 
 	res.status(200).json({
 		success: true,
