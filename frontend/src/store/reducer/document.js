@@ -33,5 +33,17 @@ export const docReducer = createReducer(
 		clearMessage: (state) => {
 			state.message = null;
 		},
+		addDocRequest: (state) => {
+			state.loading = true;
+		},
+		addDocSuccess: (state, action) => {
+			state.loading = false;
+			state.doc = action.payload.doc;
+			state.message = action.payload.message;
+		},
+		addDocFail: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
 	}
 );
