@@ -9,7 +9,7 @@ const Detail = ({ open, close, data }) => {
 			<Modal.Header>{data?.name}</Modal.Header>
 			<Modal.Body style={{ overflow: 'hidden' }}>
 				{imageExtensions.includes(lastWord) ? (
-					<img src={data?.doc?.url} className='w-[100%]' style={{ height: '90dvh' }} />
+					<img src={data?.doc?.url} className='w-[100%] object-fill' style={{ height: '90dvh' }} />
 				) : (
 					<iframe src={`https://docs.google.com/gview?url=${data?.doc?.url}&embedded=true`} className='w-[100%]' style={{ height: '90dvh' }} />
 				)}
