@@ -3,6 +3,7 @@ const Document = require('../model/documentModel');
 const catchAsync = require('../middleware/catchAsync');
 const cloudinary = require('cloudinary');
 const { getDataUri } = require('../utils/dataUri');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.createDoc = catchAsync(async (req, res, next) => {
 	const { name, desc, category, department } = req.body;
@@ -35,11 +36,19 @@ exports.createDoc = catchAsync(async (req, res, next) => {
 });
 
 exports.getDoc = catchAsync(async (req, res, next) => {
-	const doc = await Document.find().populate('user');
+	let filter = {};
+	if (req.params.tourId) filter = { tour: req.params.tourId };
+
+	const features = (await new APIFeatures(Document.find(filter), req.query).filter()).sort().limitFields().paginate();
+	const doc = await features.query;
 
 	res.status(200).json({
 		success: true,
 		doc,
+		results: doc.length,
+		total: features.total,
+		totalPages: features.totalPages,
+		page: features.page,
 	});
 });
 
