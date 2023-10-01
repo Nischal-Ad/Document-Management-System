@@ -37,7 +37,6 @@ exports.createDoc = catchAsync(async (req, res, next) => {
 
 exports.getDoc = catchAsync(async (req, res, next) => {
 	let filter = {};
-	if (req.params.tourId) filter = { tour: req.params.tourId };
 
 	const features = (await new APIFeatures(Document.find(filter), req.query).filter()).sort().limitFields().paginate();
 	const doc = await features.query;

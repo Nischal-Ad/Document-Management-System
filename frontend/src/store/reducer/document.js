@@ -9,6 +9,7 @@ export const docReducer = createReducer(
 		allDocSuccess: (state, action) => {
 			state.loading = false;
 			state.doc = action.payload.doc;
+			state.alldoc = action.payload;
 			state.message = action.payload.message;
 		},
 		allDocFail: (state, action) => {

@@ -1,21 +1,51 @@
-import { Table } from 'flowbite-react';
+import { Table, TextInput } from 'flowbite-react';
 import { Pagination } from 'flowbite-react';
 import { IoMdAdd } from 'react-icons/io';
 import { useSelector, useDispatch } from 'react-redux';
 import { delDoc, allDoc } from '../../../../store/action/document';
 import Detail from './Detail';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 const Index = () => {
+	const { doc, alldoc } = useSelector((store) => store.doc);
 	const [isOpen, setIsOpen] = useState(false);
-	const { doc } = useSelector((store) => store.doc);
+	const [search, setSearch] = useState('');
+	const [page, setPage] = useState(alldoc?.page);
+	const [params] = useSearchParams();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
+	useEffect(() => {
+		const getParams = Array.from(params.keys());
+		if (getParams.length === 0) {
+			setSearch('');
+		} else {
+			setSearch(params.get('name') ? params.get('name') : '');
+		}
+
+		params.forEach((value) => {
+			if (value === '') {
+				navigate('/');
+			}
+		});
+	}, [params, navigate]);
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		dispatch(allDoc(1, search));
+	};
+
+	useEffect(() => {
+		dispatch(allDoc(page));
+	}, [dispatch, page]);
 	return (
 		<>
-			<div className='flex justify-between items-center mx-4'>
-				<p className='text-4xl font-extrabold text-gray-900 mt-8 mb-4'>All Doc</p>
+			<div className='flex justify-between items-center mx-4 mb-3'>
+				<p className='text-4xl font-extrabold text-gray-900  '>All Doc</p>
+				<form onSubmit={handleSearch}>
+					<TextInput id='small' sizing='sm' type='search' placeholder='Search...' value={search} onChange={(e) => setSearch(e.target.value)} onSubmit={handleSearch} />
+				</form>
 				<Link
 					to={'/add/document'}
 					className='flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
@@ -71,7 +101,7 @@ const Index = () => {
 				</Table>
 			</div>
 
-			<Pagination className='mt-4 flex justify-end mr-4' currentPage={1} totalPages={100} />
+			<Pagination className='mt-4 flex justify-end mr-4' currentPage={page ? page : 1} totalPages={alldoc?.totalPages ? alldoc?.totalPages : 1} onPageChange={(e) => setPage(e)} />
 		</>
 	);
 };
