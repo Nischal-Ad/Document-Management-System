@@ -8,7 +8,7 @@ import { allDoc } from './store/action/document';
 const App = () => {
 	const dispatch = useDispatch();
 	const [isPageLoaded, setIsPageLoaded] = useState(false);
-	const { isAuthenticated, loading } = useSelector((store) => store.user);
+	const { isAuthenticated, loading, user } = useSelector((store) => store.user);
 	useEffect(() => {
 		WebFont.load({
 			google: {
@@ -27,7 +27,7 @@ const App = () => {
 		setIsPageLoaded(true);
 	}
 
-	return isPageLoaded && <Router isAuth={isAuthenticated} isLoading={loading} />;
+	return isPageLoaded && <Router isAuth={isAuthenticated} isLoading={loading} isAdmin={user?.role === 'admin' ? true : false} />;
 };
 
 export default App;
