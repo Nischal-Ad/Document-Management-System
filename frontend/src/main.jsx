@@ -15,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 				horizontal: 'right',
 			}}
 		>
-			<App />
+			<div className='container mx-auto'>
+				<App />
+			</div>
 		</SnackbarProvider>
 	</Provider>
 );

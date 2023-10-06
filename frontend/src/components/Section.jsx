@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Section = ({ children }) => {
 	return <section className='container mx-auto'>{children}</section>;
 };

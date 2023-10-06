@@ -1,6 +1,30 @@
 import axios from 'axios';
 import { notifyError, notifySuccess } from '../../components/alerts';
 
+export const register = (name, email, password, cpassword, role, department) => async (dispatch) => {
+	try {
+		dispatch({ type: 'registerRequest' });
+
+		const { data } = await axios.post(
+			`http://localhost:3000/api/v1/register/user`,
+			{ name, email, password, cpassword, role, department },
+			{
+				headers: {
+					'Content-type': 'application/json',
+				},
+
+				withCredentials: true,
+			}
+		);
+
+		dispatch({ type: 'registerSuccess', payload: data });
+		notifySuccess('register successful');
+	} catch (error) {
+		dispatch({ type: 'registerFail', payload: error.response.data.message });
+		notifyError(error.response.data.message);
+	}
+};
+
 export const login = (email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: 'loginRequest' });
