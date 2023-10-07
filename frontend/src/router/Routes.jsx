@@ -17,7 +17,6 @@ import Auth from '../pages/auth';
 import ChangePassword from '../pages/user/changepassword';
 
 const Router = ({ isAuth, isLoading, isAdmin }) => {
-	console.log(isAdmin);
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<>

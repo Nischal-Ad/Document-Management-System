@@ -52,3 +52,31 @@ export const userReducer = createReducer(
 		},
 	}
 );
+
+export const allUserReducer = createReducer(
+	{},
+	{
+		registerRequest: (state) => {
+			state.loading = true;
+		},
+		registerSuccess: (state, action) => {
+			state.loading = false;
+			state.user = action.payload;
+		},
+		registerFail: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		alluserRequest: (state) => {
+			state.loading = true;
+		},
+		alluserSuccess: (state, action) => {
+			state.loading = false;
+			state.user = action.payload;
+		},
+		alluserFail: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+	}
+);

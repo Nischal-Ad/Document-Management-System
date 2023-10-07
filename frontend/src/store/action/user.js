@@ -6,7 +6,7 @@ export const register = (name, email, password, cpassword, role, department) => 
 		dispatch({ type: 'registerRequest' });
 
 		const { data } = await axios.post(
-			`http://localhost:3000/api/v1/register/user`,
+			`http://localhost:3000/api/v1/register`,
 			{ name, email, password, cpassword, role, department },
 			{
 				headers: {
@@ -63,6 +63,23 @@ export const profile = () => async (dispatch) => {
 		dispatch({ type: 'profileSuccess', payload: data.user });
 	} catch (error) {
 		dispatch({ type: 'profileFail', payload: error.response.data.message });
+	}
+};
+
+export const allUsers = () => async (dispatch) => {
+	try {
+		dispatch({ type: 'alluserRequest' });
+
+		const { data } = await axios.get(
+			`http://localhost:3000/api/v1/users`,
+
+			{
+				withCredentials: true,
+			}
+		);
+		dispatch({ type: 'alluserSuccess', payload: data });
+	} catch (error) {
+		dispatch({ type: 'alluserFail', payload: error.response.data.message });
 	}
 };
 

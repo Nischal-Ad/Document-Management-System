@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function LogoBranding({ open }) {
 	return (
 		<>
-			<aside id='default-sidebar' className={`md:block top-15 w-64 h-full transition-transform sm:translate-x-0 fixed ${open ? '' : '-translate-x-full'}`} aria-label='Sidebar'>
+			<aside id='default-sidebar' className={`md:block top-[60px] w-64 h-full transition-transform sm:translate-x-0 fixed ${open ? '' : '-translate-x-full'}`} aria-label='Sidebar'>
 				<div className='h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800'>
 					<ul className='space-y-2 font-medium'>
 						<li>
