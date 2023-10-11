@@ -13,7 +13,6 @@ import Navbar from '../shared/navbar/UserNav'
 import AdminNav from '../shared/navbar/admin'
 import Home from '../pages/user/home'
 import Documents from '../pages/user/document/view document'
-import Document from '../pages/admin/view document admin'
 import Department from '../pages/admin/view department'
 import AddUser from '../pages/admin/adduser/user'
 import UploadDoc from '../pages/user/document/uploaddoc'
@@ -32,6 +31,11 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
         <Route path="*" element={<Error />} />
         {/* end of normal routes  */}
 
+        {/* for al users  */}
+        <Route element={<ProtectedRoute isAuth={isAuth} isloading={isLoading} />}>
+          <Route path="/changepassword" element={<ChangePassword />} />
+        </Route>
+
         {/* ProtectedRoute for users  */}
         <Route
           element={
@@ -49,7 +53,6 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
           <Route path="/documents" element={<Documents />} />
           <Route path="/documents/:id" element={<DocDetails />} />
           <Route path="/add/document" element={<UploadDoc />} />
-          <Route path="/changepassword" element={<ChangePassword />} />
         </Route>
         {/* end of ProtectedRoute for users  */}
 
@@ -67,7 +70,6 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
           }
         >
           <Route path="/add/user" element={<AddUser />} />
-          <Route path="/admin/documents" element={<Document />} />
           <Route path="/admin/departments" element={<Department />} />
           <Route path="/adminhome" element={<AdminHome />} />
         </Route>
