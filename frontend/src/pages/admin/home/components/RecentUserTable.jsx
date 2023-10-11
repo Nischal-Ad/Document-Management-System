@@ -4,9 +4,8 @@ const index = () => {
   return (
     <>
       <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">
-        Recent Documents
+        Recently Added Users
       </p>
-
       <Table>
         <Table.Head>
           <Table.HeadCell>File Name</Table.HeadCell>
