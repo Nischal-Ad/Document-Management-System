@@ -1,5 +1,6 @@
 import logo from '../../../assects/img/logo.png';
 import { Navbar, Button } from 'flowbite-react';
+import { Profile } from '../UserNav';
 
 const AdminNavbar = ({ handleOpen }) => {
 	return (
@@ -10,6 +11,7 @@ const AdminNavbar = ({ handleOpen }) => {
 			</Navbar.Brand>
 
 			<Button onClick={() => handleOpen()}>adahd</Button>
+			<Profile />
 		</Navbar>
 	);
 };

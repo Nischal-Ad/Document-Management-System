@@ -4,15 +4,40 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/action/user';
 
-const UserNav = () => {
+export const Profile = () => {
 	const { user } = useSelector((store) => store.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
 	const handleLogout = () => {
 		dispatch(logout());
 		navigate('/', { replace: true });
 	};
+	return (
+		<>
+			<div className='flex md:order-2 text-center'>
+				<Dropdown inline label={<Avatar rounded />}>
+					<Dropdown.Header className='text-center'>
+						<span className='block font-bold text-sm'>{user?.name}</span>
+						<span className='block truncate text-sm font-medium'>{user?.email}</span>
+					</Dropdown.Header>
+
+					<Link to={'/ChangePassword'} className='px-6  py-2 curso cursor-pointer'>
+						Change Password
+					</Link>
+					<Dropdown.Divider />
+
+					<p className='py-1 cursor-pointer' onClick={handleLogout}>
+						Logout
+					</p>
+				</Dropdown>
+
+				<Navbar.Toggle className='text-white' />
+			</div>
+		</>
+	);
+};
+
+const UserNav = () => {
 	return (
 		<main className='bg-blue-800 mb-3'>
 			<Navbar className='container mx-auto bg-transparent text-white' fluid rounded>
@@ -22,20 +47,8 @@ const UserNav = () => {
 						<span className='self-center whitespace-nowrap text-xl font-semibold dark:text-white'>DMS</span>
 					</div>
 				</Link>
-				<div className='flex md:order-2 text-center'>
-					<Dropdown inline label={<Avatar rounded />}>
-						<Dropdown.Header className='text-center'>
-							<span className='block font-bold text-sm'>{user?.name}</span>
-							<span className='block truncate text-sm font-medium'>{user?.email}</span>
-						</Dropdown.Header>
-						<p className='px-6  py-2 curso cursor-pointer'>Change Passsword</p>
-						<Dropdown.Divider />
-						<p className='py-1 cursor-pointer' onClick={handleLogout}>
-							Logout
-						</p>
-					</Dropdown>
-					<Navbar.Toggle className='text-white' />
-				</div>
+				<Profile />
+
 				<Navbar.Collapse className='text-center'>
 					<Link className='p-2' to={'/home'}>
 						Home
@@ -45,6 +58,9 @@ const UserNav = () => {
 					</Link>{' '}
 					<Link className='p-2' to={'/documents'}>
 						View Doc
+					</Link>
+					<Link className='p-2' to={'/addcategory'}>
+						Categories
 					</Link>
 				</Navbar.Collapse>
 			</Navbar>
