@@ -1,22 +1,44 @@
-import { Modal } from 'flowbite-react';
+import { Modal } from 'flowbite-react'
+import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer'
 
 const Detail = ({ open, close, data }) => {
-	const parts = data?.doc?.url?.split('.');
-	const lastWord = parts[parts.length - 1].toLowerCase();
-	const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'jfif'];
-	return (
-		<Modal show={open} onClose={() => close()}>
-			<Modal.Header>{data?.name}</Modal.Header>
-			<Modal.Body style={{ overflow: 'auto' }}>
-				{imageExtensions.includes(lastWord) ? (
-					<img src={data?.doc?.url} className='w-[100%] object-none' />
-				) : (
-					<iframe src={`https://docs.google.com/gview?url=${data?.doc?.url}&embedded=true`} className='w-[100%]' style={{ height: '90dvh' }} />
-				)}
-			</Modal.Body>
-			<Modal.Footer>{data?.desc}</Modal.Footer>
-		</Modal>
-	);
-};
+  const docs = [
+    {
+      uri: data?.doc?.url,
+    },
+  ]
 
-export default Detail;
+  return (
+    <Modal show={open} onClose={() => close()}>
+      <Modal.Header>{data?.name}</Modal.Header>
+      <Modal.Body style={{ overflow: 'auto' }}>
+        <div className="w-[100%]" style={{ height: '90dvh' }}>
+          <DocViewer
+            documents={docs}
+            config={{
+              header: {
+                disableHeader: true,
+                disableFileName: true,
+                retainURLParams: false,
+              },
+            }}
+            pluginRenderers={DocViewerRenderers}
+          />
+        </div>
+      </Modal.Body>
+      <Modal.Footer className="flex justify-between">
+        <p>{data?.desc}</p>
+        <a
+          href={data?.doc?.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-800 p-2 ml rounded-md font-medium text-white"
+        >
+          Download
+        </a>
+      </Modal.Footer>
+    </Modal>
+  )
+}
+
+export default Detail

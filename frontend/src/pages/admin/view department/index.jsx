@@ -1,14 +1,11 @@
-import React from "react";
-import AdminSection from "../../../components/AdminSection";
-import { Pagination, Button, Table } from "flowbite-react";
+import AdminSection from '../../../components/AdminSection'
+import { Pagination, Button, Table } from 'flowbite-react'
 
 export default function Index() {
   return (
     <AdminSection>
       <div className="flex justify-between items-center mx-4">
-        <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">
-          Departments
-        </p>
+        <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">Departments</p>
       </div>
 
       <Table hoverable>
@@ -35,11 +32,7 @@ export default function Index() {
         </Table.Body>
       </Table>
 
-      <Pagination
-        className="mt-4 flex justify-end mr-4"
-        currentPage={1}
-        totalPages={100}
-      />
+      <Pagination className="mt-4 flex justify-end mr-4" currentPage={1} totalPages={100} />
     </AdminSection>
-  );
+  )
 }
