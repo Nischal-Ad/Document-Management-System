@@ -1,57 +1,44 @@
-import { useEffect, useState } from "react";
-import {
-  Button,
-  Table,
-  Modal,
-  Pagination,
-  Label,
-  TextInput,
-  Select,
-} from "flowbite-react";
-import AdminSection from "../../../components/AdminSection";
-import { useDispatch, useSelector } from "react-redux";
-import { register, allUsers } from "../../../store/action/user";
+import { useEffect, useState } from 'react'
+import { Button, Table, Modal, Pagination, Label, TextInput, Select } from 'flowbite-react'
+import AdminSection from '../../../components/AdminSection'
+import { useDispatch, useSelector } from 'react-redux'
+import { register, allUsers } from '../../../store/action/user'
 
 const User = () => {
-  const [openModal, setOpenModal] = useState();
-  const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const [department, setDepartment] = useState("");
-  const [cpassword, setCpassword] = useState("");
-  const { user } = useSelector((store) => store.users);
+  const [openModal, setOpenModal] = useState()
+  const dispatch = useDispatch()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
+  const [department, setDepartment] = useState('')
+  const [cpassword, setCpassword] = useState('')
+  const { user } = useSelector((store) => store.users)
 
   const handleRegister = (e) => {
-    e.preventDefault();
-    dispatch(register(name, email, password, cpassword, role, department));
-  };
+    e.preventDefault()
+    dispatch(register(name, email, password, cpassword, role, department))
+  }
 
   useEffect(() => {
-    if (openModal === "default") {
-      setName("");
-      setEmail("");
-      setPassword("");
-      setRole("");
-      setDepartment("");
-      setCpassword("");
+    if (openModal === 'default') {
+      setName('')
+      setEmail('')
+      setPassword('')
+      setRole('')
+      setDepartment('')
+      setCpassword('')
     }
 
-    dispatch(allUsers());
-  }, [openModal, dispatch]);
-  console.log(user);
+    dispatch(allUsers())
+  }, [openModal, dispatch])
+  console.log(user)
   return (
     <AdminSection>
       <div className="flex justify-between items-center mx-4">
-        <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">
-          All Users
-        </p>
-        <Button onClick={() => setOpenModal("default")}>Add User</Button>
-        <Modal
-          show={openModal === "default"}
-          onClose={() => setOpenModal(undefined)}
-        >
+        <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">All Users</p>
+        <Button onClick={() => setOpenModal('default')}>Add User</Button>
+        <Modal show={openModal === 'default'} onClose={() => setOpenModal(undefined)}>
           <Modal.Header>Add Users</Modal.Header>
           <form onSubmit={handleRegister}>
             <Modal.Body>
@@ -79,15 +66,10 @@ const User = () => {
 
               <div className="mb-2">
                 <Label htmlFor="countries" value="Role" />
-                <Select
-                  id="roles"
-                  required
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <option value={""}>Select user role</option>
-                  <option value={"admin"}>Admin</option>
-                  <option value={"user"}>User</option>
+                <Select id="roles" required value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value={''}>Select user role</option>
+                  <option value={'admin'}>Admin</option>
+                  <option value={'user'}>User</option>
                 </Select>
               </div>
 
@@ -127,7 +109,7 @@ const User = () => {
             <Modal.Footer>
               <Button type="submit">Add</Button>
               <Button color="gray" onClick={() => setOpenModal(undefined)}>
-                Decline
+                Cancel
               </Button>
             </Modal.Footer>
           </form>
@@ -158,18 +140,14 @@ const User = () => {
                   <Button gradientMonochrome="success">Edit</Button>
                   <Button gradientMonochrome="failure">Delete</Button>
                 </Table.Cell>
-              </Table.Row>{" "}
+              </Table.Row>{' '}
             </>
           ))}
         </Table.Body>
       </Table>
-      <Pagination
-        className="mt-4 flex justify-end mr-4"
-        currentPage={1}
-        totalPages={100}
-      />
+      <Pagination className="mt-4 flex justify-end mr-4" currentPage={1} totalPages={100} />
     </AdminSection>
-  );
-};
+  )
+}
 
-export default User;
+export default User

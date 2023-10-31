@@ -14,6 +14,8 @@ import AdminNav from '../shared/navbar/admin'
 import Home from '../pages/user/home'
 import Documents from '../pages/user/document/view document'
 import Department from '../pages/admin/view department'
+import AdminCategory from '../pages/admin/categories'
+import AdminDocuments from '../pages/admin/viewdocument'
 import AddUser from '../pages/admin/adduser/user'
 import UploadDoc from '../pages/user/document/uploaddoc'
 import DocDetails from '../pages/user/document/details'
@@ -71,6 +73,8 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
         >
           <Route path="/add/user" element={<AddUser />} />
           <Route path="/admin/departments" element={<Department />} />
+          <Route path="/admin/documents" element={<AdminDocuments />} />
+          <Route path="/admin/category" element={<AdminCategory />} />
           <Route path="/adminhome" element={<AdminHome />} />
         </Route>
       </>
