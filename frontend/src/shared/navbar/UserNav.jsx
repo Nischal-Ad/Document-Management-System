@@ -3,6 +3,8 @@ import logo from '../../assects/img/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../store/action/user'
+import { IoLogOut } from 'react-icons/io5'
+import { RiLockPasswordFill } from 'react-icons/ri'
 
 export const Profile = () => {
   const { user } = useSelector((store) => store.user)
@@ -14,21 +16,25 @@ export const Profile = () => {
   }
   return (
     <>
-      <div className="flex md:order-2 text-center">
-        <Dropdown inline label={<Avatar rounded />}>
+      <div className="flex md:order-2">
+        <Dropdown className=" px-2" inline label={<Avatar rounded />}>
           <Dropdown.Header className="text-center">
             <span className="block font-bold text-sm">{user?.name}</span>
             <span className="block truncate text-sm font-medium">{user?.email}</span>
           </Dropdown.Header>
 
-          <Link to={'/ChangePassword'} className="px-6  py-2 curso cursor-pointer">
-            Change Password
+          <Link to={'/ChangePassword'} className=" cursor-pointer">
+            <div className="py-2 flex items-center">
+              <RiLockPasswordFill className="text-2xl" />
+              <span className="px-3">Change Password</span>
+            </div>
           </Link>
           <Dropdown.Divider />
 
-          <p className="py-1 cursor-pointer" onClick={handleLogout}>
-            Logout
-          </p>
+          <div onClick={handleLogout} className="py-2 flex items-center cursor-pointer">
+            <IoLogOut className="text-2xl" />
+            <p className="px-3">Logout</p>
+          </div>
         </Dropdown>
 
         <Navbar.Toggle className="text-white" />
