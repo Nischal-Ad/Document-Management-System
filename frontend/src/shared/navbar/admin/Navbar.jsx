@@ -6,7 +6,7 @@ import { Profile } from '../UserNav'
 
 const AdminNavbar = ({ handleOpen, isopen }) => {
   return (
-    <Navbar fluid className="fixed w-full z-10 ">
+    <Navbar fluid className="fixed w-full z-10  bg-gray-50">
       <Navbar.Brand href="/">
         <img alt="Flowbite React Logo" className="mr-3 h-6 sm:h-9" src={logo} />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
