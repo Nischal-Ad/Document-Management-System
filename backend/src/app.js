@@ -18,9 +18,11 @@ app.use(
 //route imports
 const user = require('./routes/userRoute');
 const document = require('./routes/documentRoute');
+const category = require('./routes/categoryRoute');
 
 app.use('/api/v1', user);
 app.use('/api/v1', document);
+app.use('/api/v1', category);
 
 //middleware for error
 app.use(error);
