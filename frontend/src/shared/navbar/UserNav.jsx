@@ -61,9 +61,6 @@ const UserNav = () => {
           <Link className="p-2" to={'/documents'}>
             View Doc
           </Link>
-          <Link className="p-2" to={'/addcategory'}>
-            Categories
-          </Link>
         </Navbar.Collapse>
       </Navbar>
     </main>

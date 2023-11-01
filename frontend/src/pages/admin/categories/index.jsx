@@ -66,6 +66,7 @@ export default function FormElements() {
               >
                 <p className="w-40">{item?.name}</p>
                 <RxCross1
+                  className="cursor-pointer"
                   onClick={async () => {
                     await dispatch(delCategory(item?._id))
                     dispatch(allCategory())

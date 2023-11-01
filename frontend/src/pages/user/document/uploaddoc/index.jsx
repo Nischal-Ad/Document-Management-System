@@ -1,44 +1,45 @@
-import { Label, TextInput } from "flowbite-react";
-import { Card } from "flowbite-react";
-import { Button } from "flowbite-react";
-import Section from "../../../../components/Section";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addDoc, allDoc } from "../../../../store/action/document";
+import { Label, TextInput } from 'flowbite-react'
+import { Card } from 'flowbite-react'
+import { Button } from 'flowbite-react'
+import Section from '../../../../components/Section'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addDoc, allDoc } from '../../../../store/action/document'
 
 const Index = () => {
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
-  const [category, setCategory] = useState("");
-  const [file, setFile] = useState(null);
-  const { user } = useSelector((store) => store.user);
-  const { loading } = useSelector((store) => store.doc);
-  const dispatch = useDispatch();
+  const [name, setName] = useState('')
+  const [desc, setDesc] = useState('')
+  const [category, setCategory] = useState('')
+  const [file, setFile] = useState(null)
+  const { user } = useSelector((store) => store.user)
+  const { loading } = useSelector((store) => store.doc)
+  const { category: Category } = useSelector((store) => store.category)
+  const dispatch = useDispatch()
 
   const uploadfile = (e) => {
-    setFile(e.target.files[0]);
-  };
+    setFile(e.target.files[0])
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const payload = {
       name,
       desc,
       file,
       category,
       department: user?.department,
-    };
-    await dispatch(addDoc(payload));
-    dispatch(allDoc());
-  };
+    }
+    await dispatch(addDoc(payload))
+    dispatch(allDoc())
+  }
   useEffect(() => {
     if (!loading) {
-      setName("");
-      setDesc("");
-      setCategory("");
-      setFile(null);
+      setName('')
+      setDesc('')
+      setCategory('')
+      setFile(null)
     }
-  }, [loading]);
+  }, [loading])
   return (
     <Section>
       <Card className="max-w-md mx-auto mt-4" href="#">
@@ -70,9 +71,11 @@ const Index = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option selected>Choose a category</option>
-                <option value="Routine">Routine</option>
-                <option value="Result">Result</option>
-                <option value="Notice">Notice</option>
+                {Category?.map((item, i) => (
+                  <option key={i} value={item?.name}>
+                    {item?.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -104,7 +107,7 @@ const Index = () => {
         </form>
       </Card>
     </Section>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

@@ -19,10 +19,12 @@ app.use(
 const user = require('./routes/userRoute');
 const document = require('./routes/documentRoute');
 const category = require('./routes/categoryRoute');
+const department = require('./routes/departmentRoute');
 
 app.use('/api/v1', user);
 app.use('/api/v1', document);
 app.use('/api/v1', category);
+app.use('/api/v1', department);
 
 //middleware for error
 app.use(error);

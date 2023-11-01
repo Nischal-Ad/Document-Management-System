@@ -5,6 +5,7 @@ import { profile } from './store/action/user'
 import Router from './router/Routes'
 import { allDoc } from './store/action/document'
 import { allCategory } from './store/action/category'
+import { allDepartment } from './store/action/department'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ const App = () => {
     dispatch(profile())
     dispatch(allDoc())
     dispatch(allCategory())
+    dispatch(allDepartment())
   }, [dispatch])
 
   if (!isPageLoaded && (loading || loading === undefined)) {

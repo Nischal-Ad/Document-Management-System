@@ -14,6 +14,7 @@ const User = () => {
   const [department, setDepartment] = useState('')
   const [cpassword, setCpassword] = useState('')
   const { user } = useSelector((store) => store.users)
+  const { department: Department } = useSelector((store) => store.department)
 
   const handleRegister = (e) => {
     e.preventDefault()
@@ -32,7 +33,6 @@ const User = () => {
 
     dispatch(allUsers())
   }, [openModal, dispatch])
-  console.log(user)
   return (
     <AdminSection>
       <div className="flex justify-between items-center mx-4">
@@ -73,15 +73,28 @@ const User = () => {
                 </Select>
               </div>
 
-              <div className="mb-2">
-                <Label htmlFor="department" value="Department" />
-                <TextInput
-                  id="department"
-                  required
-                  type="department"
-                  value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                />
+              <div>
+                <div className="mb-2 block">
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Department
+                  </label>
+                  <select
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                    id="category"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option selected>Choose a department</option>
+                    {Department?.map((item, i) => (
+                      <option key={i} value={item?.name}>
+                        {item?.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="mb-2">
