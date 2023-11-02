@@ -33,7 +33,7 @@ export const Profile = () => {
 
           <div onClick={handleLogout} className="py-2 flex items-center cursor-pointer">
             <IoLogOut className="text-2xl" />
-            <p className="px-3">Logout</p>
+            <p className="px-3">Log Out</p>
           </div>
         </Dropdown>
 

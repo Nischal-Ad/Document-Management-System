@@ -11,6 +11,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 const Index = () => {
   const { doc, alldoc } = useSelector((store) => store.doc)
+  const { user } = useSelector((store) => store.user)
   const [isOpen, setIsOpen] = useState(false)
   const [display, setDisplay] = useState([])
   const [search, setSearch] = useState('')
@@ -38,7 +39,7 @@ const Index = () => {
     dispatch(allDoc(page))
   }, [dispatch, page])
   return (
-    <>
+    <div className={user?.role === 'admin' && 'p-4 pt-[80px] sm:ml-64'}>
       <div className="flex justify-between items-center mx-4 mb-3">
         <p className="text-4xl font-extrabold text-gray-900  ">All Doc</p>
 
@@ -144,7 +145,7 @@ const Index = () => {
         totalPages={alldoc?.totalPages ? alldoc?.totalPages : 1}
         onPageChange={(e) => setPage(e)}
       />
-    </>
+    </div>
   )
 }
 

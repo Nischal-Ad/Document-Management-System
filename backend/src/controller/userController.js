@@ -3,6 +3,7 @@ const ErrorHandler = require('../utils/errorhandler');
 const catchAsync = require('../middleware/catchAsync');
 const crypto = require('crypto');
 const sendToken = require('../utils/jwtToken');
+const APIFeatures = require('../utils/apiFeatures');
 
 // register a new user
 exports.registerUser = catchAsync(async (req, res, next) => {
@@ -125,10 +126,16 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 
 //get all users
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-	const users = await User.find();
+	let filter = {};
+	const features = (await new APIFeatures(User.find(filter), req.query).filter()).sort().limitFields().paginate();
+	const users = await features.query;
 	res.status(200).json({
 		success: true,
 		users,
+		results: users.length,
+		total: features.total,
+		totalPages: features.totalPages,
+		page: features.page,
 	});
 });
 
@@ -160,7 +167,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 		return next(new ErrorHandler('User not found', 404));
 	}
 
-	await user.remove();
+	await User.findByIdAndDelete(user?._id);
 	res.status(200).json({
 		success: true,
 		message: 'User deleted',

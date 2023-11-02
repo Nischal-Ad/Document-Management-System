@@ -94,22 +94,24 @@ export const profile = () => async (dispatch) => {
   }
 }
 
-export const allUsers = () => async (dispatch) => {
-  try {
-    dispatch({ type: 'alluserRequest' })
+export const allUsers =
+  (page, search = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: 'alluserRequest' })
 
-    const { data } = await axios.get(
-      `http://localhost:3000/api/v1/users`,
+      const { data } = await axios.get(
+        `http://localhost:3000/api/v1/users?page=${page}&name=${search}`,
 
-      {
-        withCredentials: true,
-      }
-    )
-    dispatch({ type: 'alluserSuccess', payload: data })
-  } catch (error) {
-    dispatch({ type: 'alluserFail', payload: error.response.data.message })
+        {
+          withCredentials: true,
+        }
+      )
+      dispatch({ type: 'alluserSuccess', payload: data })
+    } catch (error) {
+      dispatch({ type: 'alluserFail', payload: error.response.data.message })
+    }
   }
-}
 
 export const logout = () => async (dispatch) => {
   try {
@@ -121,5 +123,24 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: 'logoutSuccess', payload: data.message })
   } catch (error) {
     dispatch({ type: 'logoutFail', payload: error.response.data.message })
+  }
+}
+
+export const delUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: 'delUserRequest' })
+
+    const { data } = await axios.delete(
+      `http://localhost:3000/api/v1/user/${id}`,
+
+      {
+        withCredentials: true,
+      }
+    )
+    notifySuccess(data.message)
+    dispatch({ type: 'delUserSuccess', payload: data })
+  } catch (error) {
+    dispatch({ type: 'delUserFail', payload: error.response.data.message })
+    notifyError(error.response.data.message)
   }
 }

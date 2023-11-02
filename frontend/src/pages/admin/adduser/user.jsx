@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Button, Table, Modal, Pagination, Label, TextInput, Select } from 'flowbite-react'
 import AdminSection from '../../../components/AdminSection'
 import { useDispatch, useSelector } from 'react-redux'
-import { register, allUsers } from '../../../store/action/user'
+import { register, allUsers, delUser } from '../../../store/action/user'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const User = () => {
   const [openModal, setOpenModal] = useState()
@@ -15,11 +16,30 @@ const User = () => {
   const [cpassword, setCpassword] = useState('')
   const { user } = useSelector((store) => store.users)
   const { department: Department } = useSelector((store) => store.department)
+  const [search, setSearch] = useState('')
+  const [params] = useSearchParams()
+  const navigate = useNavigate()
+  const [page, setPage] = useState(user?.page)
 
   const handleRegister = (e) => {
     e.preventDefault()
     dispatch(register(name, email, password, cpassword, role, department))
   }
+
+  useEffect(() => {
+    const getParams = Array.from(params.keys())
+    if (getParams.length === 0) {
+      setSearch('')
+    } else {
+      setSearch(params.get('name') ? params.get('name') : '')
+    }
+
+    params.forEach((value) => {
+      if (value === '') {
+        navigate('/')
+      }
+    })
+  }, [params, navigate])
 
   useEffect(() => {
     if (openModal === 'default') {
@@ -37,6 +57,18 @@ const User = () => {
     <AdminSection>
       <div className="flex justify-between items-center mx-4">
         <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">All Users</p>
+        <TextInput
+          id="small"
+          sizing="sm"
+          type="search"
+          placeholder="Search..."
+          value={search}
+          onChange={(e) => {
+            e.preventDefault()
+            dispatch(allUsers(1, e.target.value))
+            setSearch(e.target.value)
+          }}
+        />
         <Button onClick={() => setOpenModal('default')}>Add User</Button>
         <Modal show={openModal === 'default'} onClose={() => setOpenModal(undefined)}>
           <Modal.Header>Add Users</Modal.Header>
@@ -149,16 +181,28 @@ const User = () => {
                 <Table.Cell>{data?.role}</Table.Cell>
 
                 <Table.Cell className="flex items-start justify-start gap-4">
-                  <Button gradientMonochrome="info">View</Button>
                   <Button gradientMonochrome="success">Edit</Button>
-                  <Button gradientMonochrome="failure">Delete</Button>
+                  <Button
+                    gradientMonochrome="failure"
+                    onClick={async () => {
+                      await dispatch(delUser(data?._id))
+                      dispatch(allUsers())
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </Table.Cell>
               </Table.Row>{' '}
             </>
           ))}
         </Table.Body>
       </Table>
-      <Pagination className="mt-4 flex justify-end mr-4" currentPage={1} totalPages={100} />
+      <Pagination
+        className="mt-4 flex justify-end mr-4"
+        currentPage={page ? page : 1}
+        totalPages={user?.totalPages ? user?.totalPages : 1}
+        onPageChange={(e) => setPage(e)}
+      />
     </AdminSection>
   )
 }

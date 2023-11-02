@@ -92,5 +92,17 @@ export const allUserReducer = createReducer(
       state.loading = false
       state.error = action.payload
     },
+    delUserRequest: (state) => {
+      state.loading = true
+    },
+    delUserSuccess: (state, action) => {
+      state.loading = false
+      state.user = action.payload.user
+      state.message = action.payload.message
+    },
+    delUserFail: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
   }
 )
