@@ -5,6 +5,7 @@ import Section from '../../../../components/Section'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addDoc, allDoc } from '../../../../store/action/document'
+import PageTitle from '../../../../components/PageTitle'
 
 const Index = () => {
   const [name, setName] = useState('')
@@ -42,6 +43,7 @@ const Index = () => {
   }, [loading])
   return (
     <Section>
+      <PageTitle title="Add Document" />
       <Card className="max-w-md mx-auto mt-4" href="#">
         <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
           <div>

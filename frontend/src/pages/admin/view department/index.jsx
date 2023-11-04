@@ -4,6 +4,7 @@ import AdminSection from '../../../components/AdminSection'
 import { RxCross1 } from 'react-icons/rx'
 import { useDispatch, useSelector } from 'react-redux'
 import { allDepartment, delDepartment, addDepartment } from '../../../store/action/department'
+import PageTitle from '../../../components/PageTitle'
 export default function FormElements() {
   const [openModal, setOpenModal] = useState()
   const [departmentName, setDepartmentName] = useState('')
@@ -14,6 +15,7 @@ export default function FormElements() {
 
   return (
     <AdminSection>
+      <PageTitle title="Departments" />
       <Button onClick={() => props.setOpenModal('initial-focus')}>Create Department</Button>
       <Modal
         show={props.openModal === 'initial-focus'}

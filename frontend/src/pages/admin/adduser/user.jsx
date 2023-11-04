@@ -4,6 +4,7 @@ import AdminSection from '../../../components/AdminSection'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, allUsers, delUser } from '../../../store/action/user'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import PageTitle from '../../../components/PageTitle'
 
 const User = () => {
   const [openModal, setOpenModal] = useState()
@@ -55,6 +56,7 @@ const User = () => {
   }, [openModal, dispatch])
   return (
     <AdminSection>
+      <PageTitle title="Users" />
       <div className="flex justify-between items-center mx-4">
         <p className="text-4xl font-extrabold text-gray-900 mt-8 mb-4">All Users</p>
         <TextInput

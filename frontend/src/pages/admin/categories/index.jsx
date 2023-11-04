@@ -4,6 +4,7 @@ import AdminSection from '../../../components/AdminSection'
 import { RxCross1 } from 'react-icons/rx'
 import { useDispatch, useSelector } from 'react-redux'
 import { allCategory, delCategory, addCategory } from '../../../store/action/category'
+import PageTitle from '../../../components/PageTitle'
 export default function FormElements() {
   const [openModal, setOpenModal] = useState()
   const [categoryName, setCategoryName] = useState('')
@@ -14,6 +15,7 @@ export default function FormElements() {
 
   return (
     <AdminSection>
+      <PageTitle title="Categories" />
       <Button onClick={() => props.setOpenModal('initial-focus')}>Create Category</Button>
       <Modal
         show={props.openModal === 'initial-focus'}

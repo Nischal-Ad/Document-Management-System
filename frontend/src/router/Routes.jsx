@@ -17,7 +17,6 @@ import Department from '../pages/admin/view department'
 import AdminCategory from '../pages/admin/categories'
 import AddUser from '../pages/admin/adduser/user'
 import UploadDoc from '../pages/user/document/uploaddoc'
-import DocDetails from '../pages/user/document/details'
 import AdminHome from '../pages/admin/home'
 import Error from '../shared/Error'
 import Auth from '../pages/auth'
@@ -52,7 +51,6 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/documents" element={<Documents />} />
-          <Route path="/documents/:id" element={<DocDetails />} />
           <Route path="/add/document" element={<UploadDoc />} />
         </Route>
         {/* end of ProtectedRoute for users  */}
