@@ -38,6 +38,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(allDoc(page))
   }, [dispatch, page])
+
   return (
     <div className={user?.role === 'admin' && 'p-4 pt-[80px] sm:ml-64'}>
       <div className="flex justify-between items-center mx-4 mb-3">

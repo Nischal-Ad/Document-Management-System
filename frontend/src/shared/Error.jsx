@@ -1,5 +1,12 @@
-const Error = () => {
-	return <div>Error</div>;
-};
+import PageTitle from '../components/PageTitle'
 
-export default Error;
+const Error = () => {
+  return (
+    <>
+      <PageTitle title={'Error'} />
+      <div>Error</div>
+    </>
+  )
+}
+
+export default Error

@@ -1,15 +1,17 @@
-import { Button, Card } from "flowbite-react";
-import Section from "../../../components/Section";
-import RecentDocTable from "./components/RecentDocTable";
-import { HiOutlineArrowRight } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { Button, Card } from 'flowbite-react'
+import Section from '../../../components/Section'
+import RecentDocTable from './components/RecentDocTable'
+import { HiOutlineArrowRight } from 'react-icons/hi'
+import { useSelector } from 'react-redux'
+import PageTitle from '../../../components/PageTitle'
 
 const UserHome = () => {
-  const { loading } = useSelector((store) => store.user);
+  const { loading } = useSelector((store) => store.user)
   return (
     <Section>
+      <PageTitle title={'Home'} />
       {loading ? (
-        "loading..."
+        'loading...'
       ) : (
         <>
           <div className="md:flex justify-around p-2">
@@ -57,7 +59,7 @@ const UserHome = () => {
         </>
       )}
     </Section>
-  );
-};
+  )
+}
 
-export default UserHome;
+export default UserHome
