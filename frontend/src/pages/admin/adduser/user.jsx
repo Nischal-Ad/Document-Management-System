@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { register, allUsers, delUser } from '../../../store/action/user'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import PageTitle from '../../../components/PageTitle'
+import Edit from './editUser'
 
 const User = () => {
   const [openModal, setOpenModal] = useState()
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [display, setDisplay] = useState([])
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
   const [department, setDepartment] = useState('')
@@ -183,7 +186,15 @@ const User = () => {
                 <Table.Cell>{data?.role}</Table.Cell>
 
                 <Table.Cell className="flex items-start justify-start gap-4">
-                  <Button gradientMonochrome="success">Edit</Button>
+                  <Button
+                    gradientMonochrome="success"
+                    onClick={() => {
+                      setIsEditOpen(true)
+                      setDisplay(data)
+                    }}
+                  >
+                    Edit
+                  </Button>
                   <Button
                     gradientMonochrome="failure"
                     onClick={async () => {
@@ -194,11 +205,12 @@ const User = () => {
                     Delete
                   </Button>
                 </Table.Cell>
-              </Table.Row>{' '}
+              </Table.Row>
             </>
           ))}
         </Table.Body>
       </Table>
+      <Edit open={isEditOpen} close={() => setIsEditOpen(false)} data={display} />
       <Pagination
         className="mt-4 flex justify-end mr-4"
         currentPage={page ? page : 1}

@@ -144,3 +144,27 @@ export const delUser = (id) => async (dispatch) => {
     notifyError(error.response.data.message)
   }
 }
+
+export const updateUser = (id, role, department) => async (dispatch) => {
+  try {
+    dispatch({ type: 'updateUserRequest' })
+
+    const { data } = await axios.put(
+      `http://localhost:3000/api/v1/user/${id}`,
+      { role, department },
+      {
+        headers: {
+          'Content-type': 'application/json',
+        },
+
+        withCredentials: true,
+      }
+    )
+
+    dispatch({ type: 'updateUserSuccess', payload: data })
+    notifySuccess('updateUser successful')
+  } catch (error) {
+    dispatch({ type: 'updateUserFail', payload: error.response.data.message })
+    notifyError(error.response.data.message)
+  }
+}

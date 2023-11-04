@@ -73,6 +73,7 @@ const Router = ({ isAuth, isLoading, isAdmin }) => {
           <Route path="/admin/documents" element={<Documents />} />
           <Route path="/admin/category" element={<AdminCategory />} />
           <Route path="/adminhome" element={<AdminHome />} />
+          <Route path="/admin/add/document" element={<UploadDoc />} />
         </Route>
       </>
     )

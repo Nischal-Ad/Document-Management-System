@@ -104,5 +104,17 @@ export const allUserReducer = createReducer(
       state.loading = false
       state.error = action.payload
     },
+    updateUserRequest: (state) => {
+      state.loading = true
+    },
+    updateUserSuccess: (state, action) => {
+      state.loading = false
+      state.user = action.payload.user
+      state.message = action.payload.message
+    },
+    updateUserFail: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
   }
 )

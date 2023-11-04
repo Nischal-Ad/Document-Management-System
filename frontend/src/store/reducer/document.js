@@ -58,5 +58,17 @@ export const docReducer = createReducer(
       state.loading = false
       state.error = action.payload
     },
+    editDocRequest: (state) => {
+      state.loading = true
+    },
+    editDocSuccess: (state, action) => {
+      state.loading = false
+      state.doc = action.payload.doc
+      state.message = action.payload.message
+    },
+    editDocFail: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
   }
 )

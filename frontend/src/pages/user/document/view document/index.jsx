@@ -6,7 +6,8 @@ import { IoMdAdd } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 import { delDoc, allDoc } from '../../../../store/action/document'
 import Detail from './Detail'
-import { useEffect, useState } from 'react'
+import Edit from '../uploaddoc/edit'
+import { Fragment, useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import PageTitle from '../../../../components/PageTitle'
 
@@ -14,6 +15,7 @@ const Index = () => {
   const { doc, alldoc } = useSelector((store) => store.doc)
   const { user } = useSelector((store) => store.user)
   const [isOpen, setIsOpen] = useState(false)
+  const [isEditOpen, setIsEditOpen] = useState(false)
   const [display, setDisplay] = useState([])
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(alldoc?.page)
@@ -61,7 +63,7 @@ const Index = () => {
           />
 
           <Link
-            to={'/add/document'}
+            to={user?.role === 'user' ? '/add/document' : '/admin/add/document'}
             className="flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
             <p>Add</p>
@@ -69,80 +71,91 @@ const Index = () => {
           </Link>
         </div>
         <div className="overflow-y-auto">
-          <Table>
-            <Table.Head>
-              {' '}
-              <Table.HeadCell>File Name</Table.HeadCell>
-              <Table.HeadCell>File Type</Table.HeadCell>
-              <Table.HeadCell>Upload By</Table.HeadCell>
-              <Table.HeadCell>Department</Table.HeadCell>
-              <Table.HeadCell>Categories</Table.HeadCell>
-              <Table.HeadCell>Upload Date</Table.HeadCell>
-              <Table.HeadCell>Action</Table.HeadCell>
-              <Table.HeadCell></Table.HeadCell>
-            </Table.Head>
-            <Table.Body className="divide-y">
-              {doc?.map((data, i) => {
-                let str = data?.doc?.public_id
-                str = str.split('.')
-                str = str[str.length - 1]
-                return (
-                  <>
-                    {' '}
-                    <Table.Row key={i} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        {data?.name}
-                      </Table.Cell>
-                      <Table.Cell>
-                        {str === 'pdf' ? (
-                          <AiFillFilePdf />
-                        ) : str === 'docx' ? (
-                          <BsFiletypeDocx />
-                        ) : str === 'xlsx' ? (
-                          <AiFillFileExcel />
-                        ) : str === 'pptx' ? (
-                          <AiFillFilePpt />
-                        ) : (
-                          <AiFillFileImage />
-                        )}
-                      </Table.Cell>
-                      <Table.Cell>{data?.user?.name}</Table.Cell>
-                      <Table.Cell>{data?.department}</Table.Cell>
-                      <Table.Cell>{data?.category}</Table.Cell>
-                      <Table.Cell>{data?.createdAt}</Table.Cell>
-
-                      <Table.Cell className="flex items-start justify-start gap-4">
-                        <p
-                          className="font-medium text-cyan-600 hover:underline cursor-pointer"
-                          onClick={() => {
-                            setIsOpen(true)
-                            setDisplay(data)
-                          }}
-                        >
-                          View
-                        </p>
-                        <a className="font-medium text-green-600 hover:underline cursor-pointer">
-                          <p>Edit</p>
-                        </a>{' '}
-                        <p
-                          className="font-medium text-red-600 hover:underline cursor-pointer"
-                          onClick={async () => {
-                            await dispatch(delDoc(data?._id))
-                            dispatch(allDoc())
-                          }}
-                        >
-                          Delete
-                        </p>
-                        <Detail open={isOpen} close={() => setIsOpen(false)} data={display} />
-                      </Table.Cell>
-                    </Table.Row>
-                  </>
-                )
-              })}
-            </Table.Body>
-          </Table>
+          {Array.isArray(doc) ? (
+            doc.length === 0 ? (
+              <p className="text-center font-extrabold text-5xl text-gray-400">No Document</p>
+            ) : (
+              <Table>
+                <Table.Head>
+                  <Table.HeadCell>File Name</Table.HeadCell>
+                  <Table.HeadCell>File Type</Table.HeadCell>
+                  <Table.HeadCell>Upload By</Table.HeadCell>
+                  <Table.HeadCell>Department</Table.HeadCell>
+                  <Table.HeadCell>Categories</Table.HeadCell>
+                  <Table.HeadCell>Upload Date</Table.HeadCell>
+                  <Table.HeadCell>Action</Table.HeadCell>
+                  <Table.HeadCell></Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y">
+                  {doc?.map((data, i) => {
+                    let str = data?.doc?.public_id
+                    str = str.split('.')
+                    str = str[str.length - 1]
+                    return (
+                      <Fragment key={i}>
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                            {data?.name}
+                          </Table.Cell>
+                          <Table.Cell>
+                            {str === 'pdf' ? (
+                              <AiFillFilePdf />
+                            ) : str === 'docx' ? (
+                              <BsFiletypeDocx />
+                            ) : str === 'xlsx' ? (
+                              <AiFillFileExcel />
+                            ) : str === 'pptx' ? (
+                              <AiFillFilePpt />
+                            ) : (
+                              <AiFillFileImage />
+                            )}
+                          </Table.Cell>
+                          <Table.Cell>{data?.user?.name}</Table.Cell>
+                          <Table.Cell>{data?.department}</Table.Cell>
+                          <Table.Cell>{data?.category}</Table.Cell>
+                          <Table.Cell>{data?.createdAt}</Table.Cell>
+                          <Table.Cell className="flex items-start justify-start gap-4">
+                            <p
+                              className="font-medium text-cyan-600 hover:underline cursor-pointer"
+                              onClick={() => {
+                                setIsOpen(true)
+                                setDisplay(data)
+                              }}
+                            >
+                              View
+                            </p>
+                            <p
+                              className="font-medium text-green-600 hover:underline cursor-pointer"
+                              onClick={() => {
+                                setIsEditOpen(true)
+                                setDisplay(data)
+                              }}
+                            >
+                              Edit
+                            </p>
+                            <p
+                              className="font-medium text-red-600 hover:underline cursor-pointer"
+                              onClick={async () => {
+                                await dispatch(delDoc(data?._id))
+                                dispatch(allDoc())
+                              }}
+                            >
+                              Delete
+                            </p>
+                          </Table.Cell>
+                        </Table.Row>
+                      </Fragment>
+                    )
+                  })}
+                </Table.Body>
+              </Table>
+            )
+          ) : (
+            'loading'
+          )}
         </div>
-
+        <Detail open={isOpen} close={() => setIsOpen(false)} data={display} />
+        <Edit open={isEditOpen} close={() => setIsEditOpen(false)} data={display} />
         <Pagination
           className="mt-4 flex justify-end mr-4"
           currentPage={page ? page : 1}

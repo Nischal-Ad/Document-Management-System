@@ -77,3 +77,33 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 		message: 'Document deleted',
 	});
 });
+
+exports.updateDoc = catchAsync(async (req, res, next) => {
+	const document = await Document.findById(req.params.id);
+	if (!document) return next(new ErrorHandler('Document not found', 404));
+
+	const file = req.file;
+
+	let mycloud = {};
+	if (req.file) {
+		await cloudinary.v2.uploader.destroy(document.doc.public_id);
+
+		const fileUri = getDataUri(file);
+		mycloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+			public_id: file.originalname,
+			resource_type: 'raw',
+			folder: 'document',
+		});
+	}
+
+	const doc = await Document.findByIdAndUpdate(req.params.id, req.file && mycloud ? { ...req.body, doc: { public_id: mycloud.public_id, url: mycloud.secure_url } } : { ...req.body }, {
+		new: true,
+		runValidators: true,
+	});
+
+	res.status(200).json({
+		success: true,
+		message: 'document updated',
+		doc,
+	});
+});

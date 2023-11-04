@@ -73,3 +73,19 @@ export const oneDoc = (id) => async (dispatch) => {
     notifyError(error.response.data.message)
   }
 }
+
+export const editDoc = (id, payload) => async (dispatch) => {
+  try {
+    dispatch({ type: 'editDocRequest' })
+
+    const { data } = await axios.put(`http://localhost:3000/api/v1/updatedoc/${id}`, payload, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      withCredentials: true,
+    })
+    notifySuccess(data.message)
+    dispatch({ type: 'editDocSuccess', payload: data })
+  } catch (error) {
+    dispatch({ type: 'editDocFail', payload: error.response.data.message })
+    notifyError(error.response.data.message)
+  }
+}
