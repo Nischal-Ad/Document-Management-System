@@ -18,10 +18,13 @@ const App = () => {
       },
     })
     dispatch(profile())
-    dispatch(allDoc())
-    dispatch(allCategory())
-    dispatch(allDepartment())
-  }, [dispatch])
+
+    if (isAuthenticated) {
+      dispatch(allDoc())
+      dispatch(allCategory())
+      dispatch(allDepartment())
+    }
+  }, [dispatch, isAuthenticated])
 
   if (!isPageLoaded && (loading || loading === undefined)) {
     return <div>loading</div>
