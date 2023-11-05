@@ -7,6 +7,7 @@ import { allDoc } from './store/action/document'
 import { allCategory } from './store/action/category'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { allDepartment } from './store/action/department'
+import Loading from './components/Loading'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const App = () => {
   }, [dispatch, isAuthenticated])
 
   if (!isPageLoaded && (loading || loading === undefined)) {
-    return <div>loading</div>
+    return <Loading />
   }
 
   if (!isPageLoaded && !loading) {
