@@ -5,6 +5,7 @@ import { RxCross1 } from 'react-icons/rx'
 import { useDispatch, useSelector } from 'react-redux'
 import { allDepartment, delDepartment, addDepartment } from '../../../store/action/department'
 import PageTitle from '../../../components/PageTitle'
+import Loading from '../../../components/Loading'
 export default function FormElements() {
   const [openModal, setOpenModal] = useState()
   const [departmentName, setDepartmentName] = useState('')
@@ -78,7 +79,7 @@ export default function FormElements() {
             ))
           )
         ) : (
-          'loading'
+          <Loading />
         )}
       </div>
     </AdminSection>

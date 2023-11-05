@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import WebFont from 'webfontloader'
 import { useDispatch, useSelector } from 'react-redux'
-import { profile } from './store/action/user'
+import { allUsers, profile } from './store/action/user'
 import Router from './router/Routes'
 import { allDoc } from './store/action/document'
 import { allCategory } from './store/action/category'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { allDepartment } from './store/action/department'
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
       dispatch(allDoc())
       dispatch(allCategory())
       dispatch(allDepartment())
+      dispatch(allUsers())
     }
   }, [dispatch, isAuthenticated])
 
@@ -33,7 +35,7 @@ const App = () => {
   if (!isPageLoaded && !loading) {
     setIsPageLoaded(true)
   }
-
+  ChartJS.register(ArcElement, Tooltip, Legend)
   return (
     isPageLoaded && (
       <Router

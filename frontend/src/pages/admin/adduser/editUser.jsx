@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../../store/action/user'
 import { allUsers } from '../../../store/action/user'
+import Loading from '../../../components/Loading'
 
 const Edit = ({ open, close, data }) => {
   const dispatch = useDispatch()
@@ -70,7 +71,7 @@ const Edit = ({ open, close, data }) => {
             </Modal.Footer>
           </form>
         ) : (
-          'loading'
+          <Loading />
         )}
       </Modal>
     </>

@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 const ProtectedRoute = ({
   isAuth = false,
@@ -22,7 +23,7 @@ const ProtectedRoute = ({
   }
 
   return isloading ? (
-    'loading...'
+    <Loading />
   ) : (
     <>
       {nav}

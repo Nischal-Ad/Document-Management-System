@@ -2,6 +2,7 @@ import { Button, Label, Modal, TextInput } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { allDoc, editDoc } from '../../../../store/action/document'
+import Loading from '../../../../components/Loading'
 
 const Edit = ({ open, close, data }) => {
   const [file, setFile] = useState(null)
@@ -109,7 +110,7 @@ const Edit = ({ open, close, data }) => {
             </Modal.Footer>
           </form>
         ) : (
-          'loading'
+          <Loading />
         )}
       </Modal>
     </>

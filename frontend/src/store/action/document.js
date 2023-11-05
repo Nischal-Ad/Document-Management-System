@@ -8,7 +8,7 @@ export const allDoc =
       dispatch({ type: 'allDocRequest' })
 
       const { data } = await axios.get(
-        `http://localhost:3000/api/v1/getdoc?page=${page}&name=${search}`,
+        `http://localhost:3000/api/v1/getdoc?page=${page}&name=${search}&sort=createdAt`,
 
         {
           withCredentials: true,

@@ -10,6 +10,7 @@ import Edit from '../uploaddoc/edit'
 import { Fragment, useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import PageTitle from '../../../../components/PageTitle'
+import Loading from '../../../../components/Loading'
 
 const Index = () => {
   const { doc, alldoc } = useSelector((store) => store.doc)
@@ -91,6 +92,9 @@ const Index = () => {
                     let str = data?.doc?.public_id
                     str = str.split('.')
                     str = str[str.length - 1]
+
+                    const timeStamp = data?.createdAt
+                    const date = new Date(timeStamp)
                     return (
                       <Fragment key={i}>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -113,7 +117,7 @@ const Index = () => {
                           <Table.Cell>{data?.user?.name}</Table.Cell>
                           <Table.Cell>{data?.department}</Table.Cell>
                           <Table.Cell>{data?.category}</Table.Cell>
-                          <Table.Cell>{data?.createdAt}</Table.Cell>
+                          <Table.Cell>{date.toDateString()}</Table.Cell>
                           <Table.Cell className="flex items-start justify-start gap-4">
                             <p
                               className="font-medium text-cyan-600 hover:underline cursor-pointer"
@@ -151,7 +155,7 @@ const Index = () => {
               </Table>
             )
           ) : (
-            'loading'
+            <Loading />
           )}
         </div>
         <Detail open={isOpen} close={() => setIsOpen(false)} data={display} />
