@@ -18,57 +18,59 @@ export default function ShadowInputs() {
   return (
     <>
       <PageTitle title="Change Password" />
-      <Card className="max-w-sm" href="#">
-        <form className="flex flex-col gap-4 " onSubmit={handlePasswordChange}>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password" value="Old password" />
+      <div className="  grid place-content-center h-[100dvh]">
+        <Card className="max-w-sm" href="#">
+          <form className="flex flex-col gap-4 " onSubmit={handlePasswordChange}>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password" value="Old password" />
+              </div>
+              <TextInput
+                id="password"
+                required
+                shadow
+                type="password"
+                value={pass}
+                onChange={(e) => {
+                  setPass(e.target.value)
+                }}
+              />
             </div>
-            <TextInput
-              id="password"
-              required
-              shadow
-              type="password"
-              value={pass}
-              onChange={(e) => {
-                setPass(e.target.value)
-              }}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password1" value="New Password" />
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password1" value="New Password" />
+              </div>
+              <TextInput
+                id="password1"
+                required
+                shadow
+                type="password"
+                value={newPass}
+                onChange={(e) => {
+                  setNewPass(e.target.value)
+                }}
+              />
             </div>
-            <TextInput
-              id="password1"
-              required
-              shadow
-              type="password"
-              value={newPass}
-              onChange={(e) => {
-                setNewPass(e.target.value)
-              }}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password2" value="Confirm New Password" />
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password2" value="Confirm New Password" />
+              </div>
+              <TextInput
+                id="password2"
+                required
+                shadow
+                type="password"
+                value={cNewPass}
+                onChange={(e) => {
+                  setCNewPass(e.target.value)
+                }}
+              />
             </div>
-            <TextInput
-              id="password2"
-              required
-              shadow
-              type="password"
-              value={cNewPass}
-              onChange={(e) => {
-                setCNewPass(e.target.value)
-              }}
-            />
-          </div>
 
-          <Button type="submit">Change Password</Button>
-        </form>
-      </Card>
+            <Button type="submit">Change Password</Button>
+          </form>
+        </Card>
+      </div>
     </>
   )
 }

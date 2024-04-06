@@ -1,7 +1,6 @@
-import { Table, TextInput } from 'flowbite-react'
+import { Table, TextInput, Pagination } from 'flowbite-react'
 import { BsFiletypeDocx } from 'react-icons/bs'
 import { AiFillFilePdf, AiFillFileImage, AiFillFileExcel, AiFillFilePpt } from 'react-icons/ai'
-import { Pagination } from 'flowbite-react'
 import { IoMdAdd } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 import { delDoc, allDoc } from '../../../../store/action/document'
@@ -12,6 +11,49 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import PageTitle from '../../../../components/PageTitle'
 import Loading from '../../../../components/Loading'
 
+// Merge sort function
+function mergeSort(arr, compareFn) {
+  if (arr.length <= 1) {
+    return arr
+  }
+
+  const middle = Math.floor(arr.length / 2)
+  const left = arr.slice(0, middle)
+  const right = arr.slice(middle)
+
+  return merge(mergeSort(left, compareFn), mergeSort(right, compareFn), compareFn)
+}
+
+function merge(left, right, compareFn) {
+  let result = []
+  let leftIndex = 0
+  let rightIndex = 0
+
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (compareFn(left[leftIndex], right[rightIndex]) <= 0) {
+      result.push(left[leftIndex])
+      leftIndex++
+    } else {
+      result.push(right[rightIndex])
+      rightIndex++
+    }
+  }
+
+  return result.concat(left.slice(leftIndex), right.slice(rightIndex))
+}
+
+// Compare functions
+function compareDocumentsByFileName(a, b) {
+  return a.name.localeCompare(b.name)
+}
+
+function compareDocumentsByFileType(a, b) {
+  return a.doc.public_id.split('.').pop().localeCompare(b.doc.public_id.split('.').pop())
+}
+
+function compareDocumentsByUploadDate(a, b) {
+  return a.createdAt - b.createdAt
+}
 const Index = () => {
   const { doc, alldoc } = useSelector((store) => store.doc)
   const { user } = useSelector((store) => store.user)
@@ -19,17 +61,41 @@ const Index = () => {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [display, setDisplay] = useState([])
   const [search, setSearch] = useState('')
+  const [searchCriteria, setSearchCriteria] = useState('name') // Initial criteria: name
   const [page, setPage] = useState(alldoc?.page)
   const [params] = useSearchParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [sortCriteria, setSortCriteria] = useState('name')
+
+  const handleSortChange = (criteria) => {
+    setSortCriteria(criteria)
+  }
+
+  // Utility function to search based on criteria
+  // Utility function to search based on criteria
+  const searchDocuments = (criteria, searchTerm) => {
+    if (!doc) {
+      return []
+    }
+
+    if (criteria === 'name') {
+      return doc.filter((data) => data.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    } else if (criteria === 'uploadBy') {
+      return doc.filter((data) => data.user?.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    } else if (criteria === 'department') {
+      return doc.filter((data) => data.department.toLowerCase().includes(searchTerm.toLowerCase()))
+    } else {
+      return doc
+    }
+  }
 
   useEffect(() => {
     const getParams = Array.from(params.keys())
     if (getParams.length === 0) {
       setSearch('')
     } else {
-      setSearch(params.get('name') ? params.get('name') : '')
+      setSearch(params.get(searchCriteria) || '')
     }
 
     params.forEach((value) => {
@@ -37,43 +103,59 @@ const Index = () => {
         navigate('/')
       }
     })
-  }, [params, navigate])
+  }, [params, navigate, searchCriteria])
 
   useEffect(() => {
     dispatch(allDoc(page))
   }, [dispatch, page])
+
+  const filteredDocuments = searchDocuments(searchCriteria, search)
 
   return (
     <>
       <PageTitle title="Documents" />
       <div className={user?.role === 'admin' && 'p-4 pt-[80px] sm:ml-64'}>
         <div className="flex justify-between items-center mx-4 mb-3">
-          <p className="text-4xl font-extrabold text-gray-900  ">All Doc</p>
+          <div>
+            <p className="text-4xl font-extrabold text-gray-900">All Doc</p>
+            <div className="flex space-x-2">
+              <TextInput
+                id="small"
+                sizing="sm"
+                type="search"
+                placeholder="Search..."
+                value={search}
+                onChange={(e) => {
+                  e.preventDefault()
+                  setSearch(e.target.value)
+                }}
+              />
 
-          <TextInput
-            id="small"
-            sizing="sm"
-            type="search"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => {
-              e.preventDefault()
-              dispatch(allDoc(1, e.target.value))
-              setSearch(e.target.value)
-            }}
-          />
+              {/* Search criteria dropdown */}
+              <select
+                className="border rounded py-1 px-2"
+                onChange={(e) => setSearchCriteria(e.target.value)}
+                value={searchCriteria}
+              >
+                <option value="name">File Name</option>
+                <option value="uploadBy">Upload By</option>
+                <option value="department">Department</option>
+              </select>
+            </div>
+          </div>
 
           <Link
             to={user?.role === 'user' ? '/add/document' : '/admin/add/document'}
-            className="flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className="flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-green-600 dark:hover-bg-green-700 dark:focus:ring-green-800"
           >
             <p>Add</p>
             <IoMdAdd className="ml-2 h-5 w-5" />
           </Link>
         </div>
+
         <div className="overflow-y-auto">
           {Array.isArray(doc) ? (
-            doc.length === 0 ? (
+            filteredDocuments.length === 0 ? (
               <p className="text-center font-extrabold text-5xl text-gray-400">No Document</p>
             ) : (
               <Table>
@@ -88,7 +170,14 @@ const Index = () => {
                   <Table.HeadCell></Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                  {doc?.map((data, i) => {
+                  {mergeSort(
+                    filteredDocuments,
+                    sortCriteria === 'name'
+                      ? compareDocumentsByFileName
+                      : sortCriteria === 'fileType'
+                      ? compareDocumentsByFileType
+                      : compareDocumentsByUploadDate
+                  ).map((data, i) => {
                     let str = data?.doc?.public_id
                     str = str.split('.')
                     str = str[str.length - 1]
